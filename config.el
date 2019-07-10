@@ -1,3 +1,6 @@
+(require 'material-theme)
+(require 'linum-relative)
+
 (add-to-list 'default-frame-alist
              '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist
@@ -16,11 +19,13 @@
 
 (add-hook! 'org-mode-hook (company-mode -1))
 (add-hook! 'org-capture-mode-hook (company-mode -1))
-
+(linum-on)
 (setq
- doom-font (font-spec :family "SF Mono" :size 15)
- doom-big-font (font-spec :family "SF Mono" :size 30)
- doom-variable-pitch-font (font-spec :family "Avenir Next" :size 12)
+  linum-relative-backend 'display-line-numbers-mode
+  doom-theme 'material
+ doom-font (font-spec :family "SF Mono" :size 12)
+ doom-big-font (font-spec :family "SF Mono" :size 25)
+ doom-variable-pitch-font (font-spec :family "Avenir Next" :size 10)
  dart-format-on-save t
  web-mode-markup-indent-offset 2
  web-mode-code-indent-offset 2

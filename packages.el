@@ -22,3 +22,5 @@
 (package! org-brain)
 (package! ascii-art-to-unicode)
 (package! wakatime-mode)
+(package! material-theme)
+(package! linum-relative)
