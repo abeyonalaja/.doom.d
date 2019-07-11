@@ -32,9 +32,9 @@
  web-mode-css-indent-offset 2
  mac-command-modifier 'meta
  org-agenda-skip-scheduled-if-done t
- js-indent-level 2
- typescript-indent-level 2
- json-reformat:indent-width 2
+ js-indent-level 4
+ typescript-indent-level 4
+ json-reformat:indent-width 4
  dired-dwim-target t
  org-ellipsis " ▾ "
  org-bullets-bullet-list '("·")
