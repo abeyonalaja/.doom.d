@@ -23,7 +23,7 @@
 (setq
   linum-relative-backend 'display-line-numbers-mode
   doom-theme 'material
- doom-font (font-spec :family "SF Mono" :size 12)
+ doom-font (font-spec :family "SF Mono" :size 15)
  doom-big-font (font-spec :family "SF Mono" :size 25)
  doom-variable-pitch-font (font-spec :family "Avenir Next" :size 10)
  dart-format-on-save t
@@ -131,6 +131,11 @@
                  ,(rx (or "}" "]" "end"))                       ; Block end
                  ,(rx (or "#" "=begin"))                        ; Comment start
                  ruby-forward-sexp nil)))
+
+(after! rust
+  (autoload 'rust-mode "rust-mode" nil t)
+  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+  )
 
 (after! web-mode
   (add-to-list 'auto-mode-alist '("\\.njk\\'" . web-mode)))

@@ -7,7 +7,6 @@
 
        :completion
        (company          ; the ultimate code completion backend
-        +tng
         +auto            ; as-you-type code completion
         +childframe)     ; a nicer company UI. Emacs +26 only!
        (ivy
@@ -71,13 +70,13 @@
        :lang
        ;; assembly          ; assembly for fun or debugging
        ;; cc                ; C/C++/Obj-C madness
-       ;; crystal           ; ruby at the speed of c
+       crystal           ; ruby at the speed of c
        ;; clojure           ; java with a lisp
        ;; csharp            ; unity, .NET, and mono shenanigans
        common-lisp
        data              ; config/data formats
                                         ;erlang            ; an elegant language for a more civilized age
-       ;; elixir            ; erlang done right
+       elixir            ; erlang done right
        ;; elm               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
        ;;ess               ; emacs speaks statistics
@@ -92,7 +91,7 @@
        ;; lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;; nix               ; I hereby declare "nix geht mehr!"
-       ;; ocaml             ; an objective camel
+       ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
         +attach          ; custom attachment system
         +babel           ; running code in org
@@ -108,7 +107,8 @@
        python            ; beautiful is better than ugly
        rest              ; Emacs as a REST client
        ruby              ; 1.step do {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       ;; rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       rust-mode
        ;; scala             ; java, but good
        sh                ; she sells (ba|z)sh shells on the C xor
        ;; swift             ; who asked for emoji variables?
