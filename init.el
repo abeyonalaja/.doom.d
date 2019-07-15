@@ -38,7 +38,7 @@
 
        :term
        eshell            ; a consistent, cross-platform shell (WIP)
-       vterm
+       iterm
 
 
        :editor
