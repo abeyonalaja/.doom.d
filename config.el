@@ -19,6 +19,108 @@
 
 (add-hook! 'org-mode-hook (company-mode -1))
 (add-hook! 'org-capture-mode-hook (company-mode -1))
+
+(after! company
+  (setq company-idle-delay 0))
+
+(add-hook! elixir-mode
+  (flycheck-mode)
+  (rainbow-delimiters-mode))
+
+(add-hook! elm-mode
+  (flycheck-mode))
+
+(def-package! rust-mode
+  :mode "\\.rs$"
+  :config
+  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
+  (setq rust-format-on-save t)
+  (flycheck-mode))
+
+(def-package! flycheck-mix
+  :after elixir-mode
+  :config
+  (add-hook 'flycheck-mode-hook #'flycheck-mix-setup))
+
+(def-package! flycheck-credo
+  :after elixir-mode
+  :config
+  (setq flycheck-elixir-credo-strict t)
+  (add-hook 'flycheck-mode-hook #'flycheck-credo-setup))
+
+
+(def-package! erlang
+  :mode "\\.erl$"
+  :config
+  (erlang-mode))
+
+(def-package! aggressive-indent
+  :hook
+  (clojure-mode . aggressive-indent-mode)
+  (hy-mode . aggressive-indent-mode)
+  (lisp-mode . aggressive-indent-mode))
+
+(after! clojure-mode
+  (define-clojure-indent
+    (PUT 2)
+    (POST 2)
+    (GET 2)
+    (PATCH 2)
+    (DELETE 2)
+    (context 2)
+    (for-all 2)
+    (checking 3))
+  (setq clojure-align-forms-automatically t)
+  (setq cider-cljs-lein-repl
+        "(do (require 'figwheel-sidecar.repl-api)
+         (figwheel-sidecar.repl-api/start-figwheel!)
+         (figwheel-sidecar.repl-api/cljs-repl))")
+  (setq cljr-magic-require-namespaces
+        '(("io" . "clojure.java.io")
+          ("sh" . "clojure.java.shell")
+          ("jdbc" . "clojure.java.jdbc")
+          ("set" . "clojure.set")
+          ("time" . "java-time")
+          ("str" . "cuerdas.core")
+          ("path" . "pathetic.core")
+          ("walk" . "clojure.walk")
+          ("zip" . "clojure.zip")
+          ("async" . "clojure.core.async")
+          ("component" . "com.stuartsierra.component")
+          ("http" . "clj-http.client")
+          ("url" . "cemerick.url" )
+          ("sql" . "honeysql.core")
+          ("csv" . "clojure.data.csv")
+          ("json" . "cheshire.core")
+          ("s" . "clojure.spec.alpha")
+          ("fs" . "me.raynes.fs")
+          ("ig" . "integrant.core")
+          ("cp" . "com.climate.claypoole")
+          ("re-frame" . "re-frame.core")
+          ("rf"       . "re-frame.core")
+          ("re"       . "reagent.core")
+          ("reagent"  . "reagent.core")
+          ("u.core"   . "utopia.core"))))
+
+(def-package! graphql-mode
+  :mode "\\.gql$")
+
+(def-package! lsp-mode
+  :hook
+  (haskell-mode . lsp)
+  (python-mode . lsp)
+  (rust-mode . lsp)
+  :commands
+  lsp)
+
+(def-package! lsp-ui
+  :commands
+  lsp-ui-mode)
+
+(def-package! company-lsp
+  :commands company-lsp)
+
+
 (linum-on)
 (setq
   linum-relative-backend 'display-line-numbers-mode
@@ -158,3 +260,53 @@
 (set-popup-rule! "^\\*Org Agenda" :side 'bottom :size 0.90 :select t :ttl nil)
 (set-popup-rule! "^CAPTURE.*\\.org$" :side 'bottom :size 0.90 :select t :ttl nil)
 (set-popup-rule! "^\\*org-brain" :side 'right :size 1.00 :select t :ttl nil)
+
+(def-package! lispyville
+  :hook ((emacs-lisp-mode clojure-mode hy-mode) . lispyville-mode)
+  :config
+  (lispyville-set-key-theme
+   '(operators
+     c-w
+     prettify
+     text-objects
+     atom-movement
+     commentary
+     wrap
+     slurp/barf-lispy
+     additional
+     additional-movement
+     additional-insert
+     escape)))
+
+(def-package! alchemist
+  :after elixir-mode
+  :config
+  (defun rm/alchemist-project-toggle-file-and-tests ()
+    "Toggle between a file and its tests in the current window."
+    (interactive)
+    (if (alchemist-utils-test-file-p)
+        (alchemist-project-open-file-for-current-tests 'find-file)
+      (rm/alchemist-project-open-tests-for-current-file 'find-file)))
+
+  (defun rm/alchemist-project-open-tests-for-current-file (opener)
+    "Visit the test file for the current buffer with OPENER."
+    (let* ((filename (file-relative-name (buffer-file-name) (alchemist-project-root)))
+           (filename (replace-regexp-in-string "^lib/" "test/" filename))
+           (filename (replace-regexp-in-string "^web/" "test/" filename))
+           (filename (replace-regexp-in-string "^apps/\\(.*\\)/lib/" "apps/\\1/test/" filename))
+           (filename (replace-regexp-in-string "\.ex$" "_test\.exs" filename))
+           (filename (format "%s/%s" (alchemist-project-root) filename)))
+      (if (file-exists-p filename)
+          (funcall opener filename)
+        (if (y-or-n-p "No test file found; create one now?")
+            (alchemist-project--create-test-for-current-file
+             filename (current-buffer))
+          (message "No test file found."))))))
+
+(load! "+functions")
+(load! "+theming")
+(load! "+bindings")
+(load! "+commands")
+
+
+
