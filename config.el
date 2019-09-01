@@ -124,7 +124,7 @@
 (linum-on)
 (setq
   linum-relative-backend 'display-line-numbers-mode
-  doom-theme 'material
+  doom-theme 'doom-Iosvkem
  doom-font (font-spec :family "SF Mono" :size 15)
  doom-big-font (font-spec :family "SF Mono" :size 25)
  doom-variable-pitch-font (font-spec :family "Avenir Next" :size 10)
