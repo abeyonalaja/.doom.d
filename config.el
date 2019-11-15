@@ -125,8 +125,8 @@
 (setq
   linum-relative-backend 'display-line-numbers-mode
   doom-theme 'doom-Iosvkem
- doom-font (font-spec :family "SF Mono" :size 15)
- doom-big-font (font-spec :family "SF Mono" :size 25)
+ doom-font (font-spec :family "SF Mono" :size 13)
+ doom-big-font (font-spec :family "SF Mono" :size 20)
  doom-variable-pitch-font (font-spec :family "Avenir Next" :size 10)
  dart-format-on-save t
  web-mode-markup-indent-offset 2
@@ -166,7 +166,7 @@
                                   :deadline future)
                            (:name "Big Outcomes"
                                   :tag "bo")))
-
+ (setq doom-line-numbers-style 'relative) 
 (add-hook! reason-mode
   (add-hook 'before-save-hook #'refmt-before-save nil t))
 
